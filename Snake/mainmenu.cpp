@@ -48,6 +48,34 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
     exit_button->setStyleSheet("color: yellow;");
     exit_button->setGeometry(x_start, y_start+3*gap+3*y_size, x_size, y_size);
     connect(exit_button, &QPushButton::clicked, this, &MainMenu::exitApp);
+
+    //Create graphics scene and view
+    scene = new QGraphicsScene(this);
+    scene->setSceneRect(0, 0, x, y);
+    view = new QGraphicsView(scene, this);
+    view->setGeometry(0, 0, x, y);
+    view->setStyleSheet("background: transparent;");
+    view->setFrameStyle(QFrame::NoFrame);
+
+    //Player name input field
+    playerNameInput = new QLineEdit(this);
+    playerNameInput->setPlaceholderText("Enter your name...");
+    playerNameInput->setFont(QFont("Arial", 27));
+    playerNameInput->setGeometry(30,750,420,90);
+    playerNameInput->setStyleSheet("color: yellow; background-color: black; border: 2px solid yellow;");
+
+    //Welcome text display
+    welcomeTextItem = new QGraphicsTextItem();
+    welcomeTextItem->setDefaultTextColor(Qt::white);
+    welcomeTextItem->setFont(QFont("Arial", 52));
+    welcomeTextItem->setPos(30,670);
+    welcomeTextItem->setPlainText("Welcome: ");
+    scene->addItem(welcomeTextItem);
+
+    //update welcome text
+    connect(playerNameInput, &QLineEdit::textChanged, this, &MainMenu::updateWelcomeText);
+
+    this->setFocus();
 }
 
 void MainMenu::paintEvent(QPaintEvent *event) {
@@ -80,6 +108,11 @@ void MainMenu::scoreGame()
     this->close();
     ScoreBoard = new scoreboard(nullptr);
     ScoreBoard->show();
+}
+
+void MainMenu::updateWelcomeText(const QString &name) {
+    playerName = name;
+    welcomeTextItem->setPlainText(QString("Welcome: %1").arg(name));//display typped nickname
 }
 
 

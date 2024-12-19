@@ -16,7 +16,7 @@ scoreboard::scoreboard(QWidget *parent) : QWidget(parent)
     font.setPointSize(24);//Font size -all font size
 
     const int x_start = 30;
-    const int y_start=200;
+    const int y_start=420;
     const int x_size=330;
     const int y_size=90;
     const int gap=20;

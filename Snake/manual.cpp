@@ -16,7 +16,7 @@ manual::manual(QWidget *parent) : QWidget(parent)
     font.setPointSize(24);//Font size -all font size
 
     const int x_start = 30;
-    const int y_start=200;
+    const int y_start=420;
     const int x_size=330;
     const int y_size=90;
     const int gap=20;
@@ -32,6 +32,38 @@ manual::manual(QWidget *parent) : QWidget(parent)
     exit_button->setStyleSheet("color: yellow;");
     exit_button->setGeometry(x_start, y_start+3*gap+3*y_size, x_size, y_size);
     connect(exit_button, &QPushButton::clicked, this, &manual::exitApp);
+
+    //Create graphics scene and view
+    scene = new QGraphicsScene(this);
+    scene->setSceneRect(0, 0, x, y);//scene size and pos
+    view = new QGraphicsView(scene, this);
+    view->setGeometry(0, 0, x, y);
+    view->setStyleSheet("background: transparent;");//to show background
+
+    //Add game instruction
+    instructionsTextItem = new QGraphicsTextItem();
+    instructionsTextItem->setDefaultTextColor(Qt::yellow);//Instructions color
+    instructionsTextItem->setFont(QFont("Arial", 32));//Instructions font size
+    instructionsTextItem->setPlainText(
+        "Welcome to Snake Game!\n\n"
+        "How to Play:\n"
+        "- Control the snake using W, A, S, D or arrow keys.\n"
+        "- Collect the rectangles (food) to grow in size.\n"
+        "- Avoid hitting the walls or yourself.\n\n"
+        );
+    instructionsTextItem->setPos(60, 120); // Position at the bottom
+    scene->addItem(instructionsTextItem);
+
+    //Add objective
+    objectivesTextItem = new QGraphicsTextItem();
+    objectivesTextItem->setDefaultTextColor(Qt::white);// Objectives color is red
+    objectivesTextItem->setFont(QFont("Arial", 40));
+    objectivesTextItem->setPlainText(
+        "Objective:\n"
+        "Grow as much as you can and score the highest points!"
+        );
+    objectivesTextItem->setPos(60, 470);
+    scene->addItem(objectivesTextItem);
 }
 
 void manual::paintEvent(QPaintEvent *event) {
