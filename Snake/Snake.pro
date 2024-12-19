@@ -10,10 +10,16 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainmenu.cpp
+    maingame.cpp \
+    mainmenu.cpp \
+    manual.cpp \
+    scoreboard.cpp
 
 HEADERS += \
-    mainmenu.h
+    maingame.h \
+    mainmenu.h \
+    manual.h \
+    scoreboard.h
 
 FORMS +=
 
