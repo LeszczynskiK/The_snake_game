@@ -30,7 +30,7 @@ private slots:
     void startGame();//create main game window
     void manualGame();//create manual window
     void scoreGame();//create score game window
-    void updateWelcomeText(const QString &name);//display uer nickname
+    void updateWelcomeText();//display uer nickname
 private:
     QPixmap background;//Background txt
     QPushButton *exit_button;//exit app

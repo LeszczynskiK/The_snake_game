@@ -32,6 +32,14 @@ scoreboard::scoreboard(QWidget *parent) : QWidget(parent)
     exit_button->setStyleSheet("color: yellow;");
     exit_button->setGeometry(x_start, y_start+3*gap+3*y_size, x_size, y_size);
     connect(exit_button, &QPushButton::clicked, this, &scoreboard::exitApp);
+
+    //Create graphics scene and view
+    scene = new QGraphicsScene(this);
+    scene->setSceneRect(0, 0, x, y);//scene size and pos
+    view = new QGraphicsView(scene, this);
+    view->setGeometry(0, 0, x, y);
+    view->setStyleSheet("background: transparent;");//to show background
+    view->setAttribute(Qt::WA_TransparentForMouseEvents);//the view transparent for mouse events(WA - widget atributes)
 }
 
 void scoreboard::paintEvent(QPaintEvent *event) {

@@ -11,6 +11,7 @@
 #include <QTextEdit>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QGraphicsView>
 
 class MainMenu;
 
@@ -27,6 +28,8 @@ private:
     QPushButton *exit_button;//exit app
     QPushButton *menu_button;//go to menu
     MainMenu *mainWindow;
+    QGraphicsScene *scene;//create scene
+    QGraphicsView *view;//view of app
 };
 
 #endif // SCOREBOARD_H

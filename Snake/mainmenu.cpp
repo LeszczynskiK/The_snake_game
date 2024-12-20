@@ -56,6 +56,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
     view->setGeometry(0, 0, x, y);
     view->setStyleSheet("background: transparent;");
     view->setFrameStyle(QFrame::NoFrame);
+    view->setAttribute(Qt::WA_TransparentForMouseEvents);//the view transparent for mouse events(WA - widget atributes)
 
     //Player name input field
     playerNameInput = new QLineEdit(this);
@@ -73,9 +74,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
     scene->addItem(welcomeTextItem);
 
     //update welcome text
-    connect(playerNameInput, &QLineEdit::textChanged, this, &MainMenu::updateWelcomeText);
-
-    this->setFocus();
+    connect(playerNameInput, &QLineEdit::returnPressed, this, &MainMenu::updateWelcomeText);//after enter pressed, remember nickname
 }
 
 void MainMenu::paintEvent(QPaintEvent *event) {
@@ -110,9 +109,13 @@ void MainMenu::scoreGame()
     ScoreBoard->show();
 }
 
-void MainMenu::updateWelcomeText(const QString &name) {
-    playerName = name;
-    welcomeTextItem->setPlainText(QString("Welcome: %1").arg(name));//display typped nickname
+void MainMenu::updateWelcomeText() {
+    playerName = playerNameInput->text();
+    if (!playerName.isEmpty()) {
+        welcomeTextItem->setPlainText(QString("Welcome: %1").arg(playerName));
+    } else {
+        welcomeTextItem->setPlainText("Welcome: ");
+    }
 }
 
 

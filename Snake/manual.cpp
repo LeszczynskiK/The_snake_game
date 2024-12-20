@@ -39,6 +39,7 @@ manual::manual(QWidget *parent) : QWidget(parent)
     view = new QGraphicsView(scene, this);
     view->setGeometry(0, 0, x, y);
     view->setStyleSheet("background: transparent;");//to show background
+    view->setAttribute(Qt::WA_TransparentForMouseEvents);//the view transparent for mouse events(WA - widget atributes)
 
     //Add game instruction
     instructionsTextItem = new QGraphicsTextItem();

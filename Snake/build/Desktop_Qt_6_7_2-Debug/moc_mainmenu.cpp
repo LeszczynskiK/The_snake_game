@@ -45,8 +45,7 @@ constexpr auto qt_meta_stringdata_CLASSMainMenuENDCLASS = QtMocHelpers::stringDa
     "startGame",
     "manualGame",
     "scoreGame",
-    "updateWelcomeText",
-    "name"
+    "updateWelcomeText"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -72,7 +71,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainMenuENDCLASS[] = {
        6,    0,   54,    2, 0x08,    4 /* Private */,
        7,    0,   55,    2, 0x08,    5 /* Private */,
        8,    0,   56,    2, 0x08,    6 /* Private */,
-       9,    1,   57,    2, 0x08,    7 /* Private */,
+       9,    0,   57,    2, 0x08,    7 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -80,7 +79,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainMenuENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   10,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -106,8 +105,7 @@ Q_CONSTINIT const QMetaObject MainMenu::staticMetaObject = { {
         // method 'scoreGame'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'updateWelcomeText'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -123,7 +121,7 @@ void MainMenu::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 2: _t->startGame(); break;
         case 3: _t->manualGame(); break;
         case 4: _t->scoreGame(); break;
-        case 5: _t->updateWelcomeText((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 5: _t->updateWelcomeText(); break;
         default: ;
         }
     }
