@@ -58,7 +58,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
     view->setFrameStyle(QFrame::NoFrame);
     view->setAttribute(Qt::WA_TransparentForMouseEvents);//the view transparent for mouse events(WA - widget atributes)
 
-    //Player name input field
+    //payer name input field
     playerNameInput = new QLineEdit(this);
     playerNameInput->setPlaceholderText("Enter your name...");
     playerNameInput->setFont(QFont("Arial", 27));

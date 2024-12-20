@@ -1,7 +1,10 @@
+
 #ifndef MAINGAME_H
 #define MAINGAME_H
 
 #include "mainmenu.h"
+#include "snake.h"
+#include "food.h"
 
 #include <QWidget>
 #include <QLineEdit>
@@ -16,6 +19,7 @@
 #include <QString>
 #include <QTimer>
 #include <QGraphicsView>
+#include <QApplication>
 
 class MainMenu;
 
@@ -28,7 +32,10 @@ private slots:
     void exitApp();//quic app
     void menuApp();//go to menu
     void displayDeathMessage();//message after death
+    void resetGame();//new game initialisation
+    void moveSnake();//snake movement
 private:
+    void keyPressEvent(QKeyEvent *event);
     QPixmap background;//Background txt
     QPushButton *exit_button;//exit app
     QPushButton *menu_button;//go to menu
@@ -42,6 +49,10 @@ private:
     void updateDisplay();//show points
     QGraphicsScene *scene;//create scene
     QGraphicsView *view;//view of app
+    QTimer *moveTimer;
+
+    Snake *snake;//pointer to snake object
+    Food *food;//pointer to food object
 };
 
 #endif // MAINGAME_H

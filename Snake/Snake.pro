@@ -9,17 +9,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    food.cpp \
     main.cpp \
     maingame.cpp \
     mainmenu.cpp \
     manual.cpp \
-    scoreboard.cpp
+    scoreboard.cpp \
+    snake.cpp
 
 HEADERS += \
+    food.h \
     maingame.h \
     mainmenu.h \
     manual.h \
-    scoreboard.h
+    scoreboard.h \
+    snake.h
 
 FORMS +=
 

@@ -52,12 +52,12 @@ manual::manual(QWidget *parent) : QWidget(parent)
         "- Collect the rectangles (food) to grow in size.\n"
         "- Avoid hitting the walls or yourself.\n\n"
         );
-    instructionsTextItem->setPos(60, 120); // Position at the bottom
+    instructionsTextItem->setPos(60, 120);//Position at the bottom
     scene->addItem(instructionsTextItem);
 
     //Add objective
     objectivesTextItem = new QGraphicsTextItem();
-    objectivesTextItem->setDefaultTextColor(Qt::white);// Objectives color is red
+    objectivesTextItem->setDefaultTextColor(Qt::white);//Objectives color is red
     objectivesTextItem->setFont(QFont("Arial", 40));
     objectivesTextItem->setPlainText(
         "Objective:\n"

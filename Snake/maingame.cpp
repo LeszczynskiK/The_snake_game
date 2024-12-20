@@ -19,7 +19,7 @@ maingame::maingame(QWidget *parent) : QWidget(parent)
     const int x_start =225;
     const int y_start=1;
     const int x_size=200;
-    const int y_size=45;
+    const int y_size=33;
 
     menu_button = new QPushButton("Menu...", this);//go to menu
     menu_button->setFont(font);
@@ -42,12 +42,18 @@ maingame::maingame(QWidget *parent) : QWidget(parent)
     view->setGeometry(0, 0, x, y);
     view->setStyleSheet("background: transparent;");//to show background
     view->setAttribute(Qt::WA_TransparentForMouseEvents);//the view transparent for mouse events(WA - widget atributes)
+    menu_button->setFocusPolicy(Qt::NoFocus);
+    exit_button->setFocusPolicy(Qt::NoFocus);
+
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
 
     //Create score text item
     scoreTextItem = new QGraphicsTextItem();
     scoreTextItem->setDefaultTextColor(Qt::yellow);//points colour
-    scoreTextItem->setFont(QFont("Arial", 27));//points font size
-    scoreTextItem->setPos(40, 5);//Set position on the screen
+    scoreTextItem->setFont(QFont("Arial", 23));//points font size
+    scoreTextItem->setPos(40, 1);//Set position on the screen
     scoreTextItem->setPlainText("Score: 0");
     scene->addItem(scoreTextItem);//Add to scene
 
@@ -57,36 +63,65 @@ maingame::maingame(QWidget *parent) : QWidget(parent)
     deathTextItem->setFont(QFont("Arial", 185));//death message font size
     deathTextItem->setPlainText("");//initially empty - fill with text after losing
     scene->addItem(deathTextItem);//Add to scene
-    deathTextItem->setPos(x / 2 - 300, y / 2 - 100);//Center position
+    deathTextItem->setPos(x / 2 -470, y / 2 - 200);//Center position
 
     updateDisplay();
 
+    bool gameOver = false;
     deathTimer = new QTimer(this);//initialize on the beginning
     connect(deathTimer, &QTimer::timeout, this, &maingame::menuApp);
+
+    snake = new Snake(30, 100, 100);//create new snake object
+    food = new Food(30, 920, 680);//create new food object
+
+    moveTimer = new QTimer(this);//snake timer move
+    connect(moveTimer, &QTimer::timeout, this, &maingame::moveSnake);
+    moveTimer->start(150);
+
+    view->setFocusPolicy(Qt::NoFocus);
+    this->setFocus();
 }
 
 void maingame::paintEvent(QPaintEvent *event) {
     QWidget::paintEvent(event);
     QPainter painter(this);
-    painter.drawPixmap(0, 0, background);//first draw background, later added elements on the background
+    painter.drawPixmap(0, 0, background);
+
+    //draw frame around
+    QRect frameRect(35, 38, width() - 85, height() - 78);//60px from edge of scene
+    painter.setPen(QPen(Qt::black, 4));
+    painter.drawRect(frameRect);//draw frame
+
+    if (snake) {
+        snake->draw(painter);
+    }
+
+    if (food) {
+        food->draw(painter);
+    }
 }
 
 void maingame::exitApp()
 {
+    deathTimer->stop();
     this->close();//turn off app...
+    delete this;
 }
 
 void maingame::menuApp()
 {
+    deathTimer->stop();
     this->close();
-    auto *mainWindow = new MainMenu(); // Tworzenie dynamiczne
+    auto *mainWindow = new MainMenu();//create mainWindow
     mainWindow->show();
+    delete this;
 }
 
 void maingame::displayDeathMessage()
 {
     qDebug("You lost...");
-    deathTimer->start(3000);
+    deathTextItem->setPlainText("You lost!!!");
+    deathTimer->start(5000);
 }
 
 void maingame::updateDisplay() {
@@ -96,4 +131,76 @@ void maingame::updateDisplay() {
 bool maingame::isGameOver()
 {
     return gameOver;
+}
+
+void maingame::resetGame() {
+    gameOver = false;
+    score = 0;
+
+    if (snake) {
+        delete snake;//Clean up the previous snake object, if any
+        snake = nullptr;
+    }
+    snake = new Snake(30, 100, 100);//Create new snake object
+    if (food) {
+        delete food;//Clean up the previous food object, if any
+        food = nullptr;
+    }
+    food = new Food(30, 920, 680);//create new food object
+
+    updateDisplay();
+}
+
+void maingame::moveSnake() {
+    if (gameOver)
+    {
+        displayDeathMessage();
+        moveTimer->stop();
+    }
+
+
+    if (snake->getHead().intersects(food->getPosition())) {//if snake head touch food before move
+        food->generate(1920*0.8, 1080*0.8);//generate new food
+        snake->grow();//increase snake size
+        score += 10;//add points
+        updateDisplay();
+    }
+
+    QRect frameRect(35, 38, width() - 85, height() - 78);
+    if (!frameRect.contains(snake->getHead())) {
+        gameOver = true;
+        displayDeathMessage();
+        moveTimer->stop();
+    }
+
+    snake->move(snake->getDirection());
+    update();//actualise view
+
+
+    if (snake->checkCollision()) {//if collided
+        gameOver = true;
+        displayDeathMessage();
+        moveTimer->stop();
+    }
+
+    updateDisplay();
+    update();
+}
+
+void maingame::keyPressEvent(QKeyEvent *event) {
+    qDebug() << "Key pressed: " << event->key();
+    if (event->key() == Qt::Key_Up) {
+        qDebug() << "Up key pressed";
+        snake->setDirection(1);//up
+    } else if (event->key() == Qt::Key_Down) {
+        qDebug() << "Down key pressed";
+        snake->setDirection(3);//down
+    } else if (event->key() == Qt::Key_Left) {
+        qDebug() << "Left key pressed";
+        snake->setDirection(0);//left
+    } else if (event->key() == Qt::Key_Right) {
+        qDebug() << "Right key pressed";
+        snake->setDirection(2);//right
+    }
+    event->accept();//accept event
 }
