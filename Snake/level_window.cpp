@@ -10,7 +10,7 @@ level_window::level_window(QWidget *parent) : QWidget(parent)
     setFixedSize(x, y);//Set window size
 
     //Background image
-    background = QPixmap("/home/krzysiek89/Desktop/QT_aplikacje/The_snake_game/scoreboard_photo.png").scaled(x, y,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    background = QPixmap("/home/krzysiek89/Desktop/QT_aplikacje/The_snake_game/level_window.png").scaled(x, y,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
     QFont font;
     font.setPointSize(24);//Font size -all font size
@@ -20,7 +20,7 @@ level_window::level_window(QWidget *parent) : QWidget(parent)
     const int x_size=330;
     const int y_size=90;
     const int gap=20;
-    const int level_gap=400;
+    const int level_gap=360;
     const int x_start_lvl=65;
 
     easy_button = new QPushButton("Easy level...", this);//go to menu
@@ -50,13 +50,13 @@ level_window::level_window(QWidget *parent) : QWidget(parent)
     menu_button = new QPushButton("Menu...", this);//go to menu
     menu_button->setFont(font);
     menu_button->setStyleSheet("color: yellow;");
-    menu_button->setGeometry(x_start, y_start+2*gap+2*y_size, x_size, y_size);
+    menu_button->setGeometry(x_start_lvl+gap+x_size-100, y_start+2*y_size, x_size, y_size);
     connect(menu_button, &QPushButton::clicked, this, &level_window::menuApp);
 
     exit_button = new QPushButton("Exit app...", this);//leave from app
     exit_button->setFont(font);
     exit_button->setStyleSheet("color: yellow;");
-    exit_button->setGeometry(x_start, y_start+3*gap+3*y_size, x_size, y_size);
+    exit_button->setGeometry(x_start_lvl+2*gap+2*x_size+100, y_start+2*y_size, x_size, y_size);
     connect(exit_button, &QPushButton::clicked, this, &level_window::exitApp);
 
     //Create graphics scene and view
@@ -91,27 +91,27 @@ void level_window::menuApp()
 void level_window::easyApp()
 {
     this->close();
-    MainGame = new maingame(175,nullptr);
+    MainGame = new maingame(150,nullptr);//create game with the speed of 150
     MainGame->show();
 }
 
 void level_window::mediumApp()
 {
     this->close();
-    MainGame = new maingame(120,nullptr);
+    MainGame = new maingame(100,nullptr);//create game with the speed of 100
     MainGame->show();
 }
 
 void level_window::hardApp()
 {
     this->close();
-    MainGame = new maingame(75,nullptr);
+    MainGame = new maingame(60,nullptr);//create game with the speed of 60
     MainGame->show();
 }
 
 void level_window::ultraApp()
 {
     this->close();
-    MainGame = new maingame(30,nullptr);
+    MainGame = new maingame(30,nullptr);//create game with the speed of 30
     MainGame->show();
 }
