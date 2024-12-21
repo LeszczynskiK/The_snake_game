@@ -1,7 +1,7 @@
 #include "maingame.h"
 
 
-maingame::maingame(QWidget *parent) : QWidget(parent)
+maingame::maingame(int speed,QWidget *parent) : QWidget(parent)
 {
     setWindowTitle("The snake game");
 
@@ -76,7 +76,7 @@ maingame::maingame(QWidget *parent) : QWidget(parent)
 
     moveTimer = new QTimer(this);//snake timer move
     connect(moveTimer, &QTimer::timeout, this, &maingame::moveSnake);
-    moveTimer->start(150);
+    moveTimer->start(speed);
 
     view->setFocusPolicy(Qt::NoFocus);
     this->setFocus();
@@ -156,6 +156,7 @@ void maingame::moveSnake() {
     {
         displayDeathMessage();
         moveTimer->stop();
+        return;
     }
 
 
@@ -174,13 +175,12 @@ void maingame::moveSnake() {
     }
 
     snake->move(snake->getDirection());
-    update();//actualise view
-
 
     if (snake->checkCollision()) {//if collided
         gameOver = true;
         displayDeathMessage();
         moveTimer->stop();
+        return;
     }
 
     updateDisplay();

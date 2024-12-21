@@ -26,7 +26,7 @@ class MainMenu;
 class maingame : public QWidget{
     Q_OBJECT
 public:
-    maingame(QWidget *parent = nullptr);
+    maingame(int speed,QWidget *parent = nullptr);
 private slots:
     void paintEvent(QPaintEvent *event);//background setter
     void exitApp();//quic app

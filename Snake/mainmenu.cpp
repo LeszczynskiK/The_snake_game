@@ -2,6 +2,7 @@
 #include "manual.h"
 #include "maingame.h"
 #include "scoreboard.h"
+#include "level_window.h"
 
 
 MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
@@ -91,8 +92,8 @@ void MainMenu::exitApp()
 void MainMenu::startGame()
 {
     this->close();
-    MainGame = new maingame(nullptr);
-    MainGame->show();
+    LevelWindow = new level_window(nullptr);
+    LevelWindow->show();
 }
 
 void MainMenu::manualGame()//create manual window

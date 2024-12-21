@@ -18,6 +18,7 @@
 class maingame;
 class manual;
 class scoreboard;
+class level_window;
 //if one class has pointer to 2nd class and 2nd class has pointer to 1st class wee need forward declaration
 
 class MainMenu : public QWidget {
@@ -47,6 +48,7 @@ private:
     maingame* MainGame;
     manual* ManualGame;
     scoreboard* ScoreBoard;
+    level_window* LevelWindow;
 
 };
 

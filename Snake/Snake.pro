@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     food.cpp \
+    level_window.cpp \
     main.cpp \
     maingame.cpp \
     mainmenu.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     food.h \
+    level_window.h \
     maingame.h \
     mainmenu.h \
     manual.h \

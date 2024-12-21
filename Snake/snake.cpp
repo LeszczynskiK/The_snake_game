@@ -8,45 +8,20 @@ Snake::Snake(int size, int startX, int startY) {
     body.append(QRect(startX, startY, snakeSize, snakeSize));//add snake head
 }
 
-void Snake::move(int dir) {
-    //If direction of movement is opposite (e.g., left on right, up on down), don't allow this move
-    if ((direction == 0 && dir == 2) || //from left to right
-        (direction == 2 && dir == 0) || //from right to left
-        (direction == 1 && dir == 3) || //from up to down
-        (direction == 3 && dir == 1))   //from down to up
-    {
-        return;//Ignore moving direction if change is by 180 degrees
-    }
+void Snake::move(int direction) {
 
-    //If moving along the X axis (left/right), only allow up or down movement
-    //If moving along the Y axis (up/down), only allow left or right movement
-    if ((direction == 0 || direction == 2) && (dir == 1 || dir == 3)) {
-        return;//Block axis change from X axis (left/right) to Y axis (up/down)
-    }
-    if ((direction == 1 || direction == 3) && (dir == 0 || dir == 2)) {
-        return;//Block axis change from Y axis (up/down) to X axis (left/right)
-    }
+    QRect head = body.first();//get current head position
 
-    direction = dir;//Update direction based on input
-    QRect head = body.first();//Get the current head of the snake
-
-    //Move the head based on the direction
+    //Move head to direction...
     switch (direction) {
-    case 0: head.moveLeft(head.left() - snakeSize); break;//left
-    case 1: head.moveTop(head.top() - snakeSize); break;//up
-    case 2: head.moveLeft(head.left() + snakeSize); break;//right
-    case 3: head.moveTop(head.top() + snakeSize); break;//down
+    case 0: head.moveLeft(head.left() - snakeSize); break; //left
+    case 1: head.moveTop(head.top() - snakeSize); break;   //up
+    case 2: head.moveLeft(head.left() + snakeSize); break; //right
+    case 3: head.moveTop(head.top() + snakeSize); break;   //down
     }
 
-    //Check for collision with the body
-    for (const QRect &segment : body) {
-        if (head == segment) {
-            return;//Stop moving if there is a collision
-        }
-    }
-
-    body.push_front(head);//Add the new head at the front of the snake
-    body.pop_back();//Remove the tail to simulate snake movement
+    body.push_front(head);//add head - to stimulate move
+    body.pop_back();//delete tail to stimulate move (to keep the same size of snake if he did not eat food)
 }
 
 
@@ -88,7 +63,19 @@ int Snake::getDirection() const {
 
 void Snake::setDirection(int dir) {
 
-    direction = dir;
+     //block movement change by 180 degree (opposite direction is denied)
+    if ((direction == 0 && dir == 2) || //from left to right
+        (direction == 2 && dir == 0) || //from right to left
+        (direction == 1 && dir == 3) || //from up to down
+        (direction == 3 && dir == 1))   //from down to up
+    {
+        return; //ignore if direction is opposite
+    }
+
+    //accept only direction basedon number 0-3
+    if (dir >= 0 && dir <= 3) {
+        direction = dir; //save current direction
+    }
 }
 
 void Snake::draw(QPainter &painter) const {
