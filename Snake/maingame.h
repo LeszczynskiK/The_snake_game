@@ -20,13 +20,15 @@
 #include <QTimer>
 #include <QGraphicsView>
 #include <QApplication>
+#include <QFile>
+#include <QTextStream>
 
 class MainMenu;
 
 class maingame : public QWidget{
     Q_OBJECT
 public:
-    maingame(int speed,QWidget *parent = nullptr);
+    maingame(int speed,const QString& name,QWidget *parent = nullptr);
 private slots:
     void paintEvent(QPaintEvent *event);//background setter
     void exitApp();//quic app
@@ -53,6 +55,10 @@ private:
 
     Snake *snake;//pointer to snake object
     Food *food;//pointer to food object
+
+    void saveScoreToFile(const QString& playerName);//save score to txt if player die
+    QString playerName;
+
 };
 
 #endif // MAINGAME_H

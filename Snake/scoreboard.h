@@ -12,6 +12,8 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QGraphicsView>
+#include <QFile>
+#include <QTextStream>
 
 class MainMenu;
 
@@ -23,6 +25,7 @@ private slots:
     void paintEvent(QPaintEvent *event);//background setter
     void exitApp();
     void menuApp();
+    void loadScores();//load scores from last games...
 private:
     QPixmap background;//Background txt
     QPushButton *exit_button;//exit app
@@ -30,6 +33,8 @@ private:
     MainMenu *mainWindow;
     QGraphicsScene *scene;//create scene
     QGraphicsView *view;//view of app
+    QStringList scoresList;//list for storing scores
+    QVector<QLabel*> scoreLabels;//holds labels for displaying each score
 };
 
 #endif // SCOREBOARD_H

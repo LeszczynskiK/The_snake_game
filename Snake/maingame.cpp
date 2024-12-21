@@ -1,7 +1,7 @@
 #include "maingame.h"
 
 
-maingame::maingame(int speed,QWidget *parent) : QWidget(parent)
+maingame::maingame(int speed,const QString& name,QWidget *parent) : QWidget(parent),playerName(name)
 {
     setWindowTitle("The snake game");
 
@@ -121,6 +121,9 @@ void maingame::displayDeathMessage()
 {
     qDebug("You lost...");
     deathTextItem->setPlainText("You lost!!!");
+
+    saveScoreToFile(playerName);//save score
+
     deathTimer->start(5000);
 }
 
@@ -174,10 +177,10 @@ void maingame::moveSnake() {
         moveTimer->stop();
     }
 
-    snake->move(snake->getDirection());
+    snake->move(snake->getDirection());//move snake with the argument of choosen by keyboard direction
 
     if (snake->checkCollision()) {//if collided
-        gameOver = true;
+        gameOver = true;//you lost
         displayDeathMessage();
         moveTimer->stop();
         return;
@@ -187,7 +190,7 @@ void maingame::moveSnake() {
     update();
 }
 
-void maingame::keyPressEvent(QKeyEvent *event) {
+void maingame::keyPressEvent(QKeyEvent *event) {//keyboard character steering
     qDebug() << "Key pressed: " << event->key();
     if (event->key() == Qt::Key_Up) {
         qDebug() << "Up key pressed";
@@ -203,4 +206,15 @@ void maingame::keyPressEvent(QKeyEvent *event) {
         snake->setDirection(2);//right
     }
     event->accept();//accept event
+}
+
+void maingame::saveScoreToFile(const QString& playerName) {//create scores.txt and put there nickname and score
+    QFile file("scores.txt");
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << playerName << ": " << score << "\n";
+        file.close();
+    } else {
+        qDebug() << "Failed to open scores.txt for writing!";
+    }
 }

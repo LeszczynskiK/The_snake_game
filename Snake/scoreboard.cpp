@@ -40,6 +40,41 @@ scoreboard::scoreboard(QWidget *parent) : QWidget(parent)
     view->setGeometry(0, 0, x, y);
     view->setStyleSheet("background: transparent;");//to show background
     view->setAttribute(Qt::WA_TransparentForMouseEvents);//the view transparent for mouse events(WA - widget atributes)
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    loadScores();//load last scores...
+
+    //add a QTextEdit for displaying the scores
+    QTextEdit *scoreDisplay = new QTextEdit(this);
+    scoreDisplay->setFont(font);
+    scoreDisplay->setStyleSheet("color: yellow; background: transparent;");
+    scoreDisplay->setGeometry(800, 350, 520, 400);
+    scoreDisplay->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scoreDisplay->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scoreDisplay->setReadOnly(true);//read only
+
+    QTextEdit *scoreBestDisplay = new QTextEdit(this);
+    scoreBestDisplay->setFont(font);
+    scoreBestDisplay->setStyleSheet("color: yellow; background: transparent;");
+    scoreBestDisplay->setGeometry(210, 190, 470, 350);
+    scoreBestDisplay->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scoreBestDisplay->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scoreBestDisplay->setReadOnly(true); // Make it read-only
+
+    //display the scores on the screen
+    QString scoreText = "";//start text
+    for (int i = 0; i < scoresList.size() && i < 10; ++i) {//show 10 last
+        scoreText += QString("%1. %2\n").arg(i + 1).arg(scoresList[i]);
+    }
+    scoreDisplay->setPlainText(scoreText);//set score in text area
+
+    //display the best score on the screen
+    QString scoreTextBest = "";//start best text
+    for (int i = 0; i < scoresList.size() && i < 1; ++i) {//show best one
+        scoreTextBest += QString("%1. %2\n").arg(i + 1).arg(scoresList[i]);
+    }
+    scoreBestDisplay->setPlainText(scoreTextBest);//set score in text area
 }
 
 void scoreboard::paintEvent(QPaintEvent *event) {
@@ -58,4 +93,21 @@ void scoreboard::menuApp()
     this->close();
     mainWindow = new MainMenu(nullptr);
     mainWindow->show();
+}
+
+
+void scoreboard::loadScores() {//read from .txt scores from last games
+    QFile file("scores.txt");//Load .txt file with scores
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            scoresList.append(line);//Add lines to scoresList to later display
+        }
+        file.close();
+    } else {
+        qDebug() << "Failed to open scores.txt for reading!";
+    }
+
+    qDebug() << "Loaded scores:" << scoresList;
 }
