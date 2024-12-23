@@ -16,11 +16,13 @@ maingame::maingame(const QString& name,int speed,QWidget *parent) : QWidget(pare
     QFont font;
     font.setPointSize(20);//Font size -all font size
 
+    //sizes and coordinates for buttons
     const int x_start =225;
     const int y_start=1;
     const int x_size=200;
     const int y_size=33;
 
+    //buttons
     menu_button = new QPushButton("Menu...", this);//go to menu
     menu_button->setFont(font);
     menu_button->setStyleSheet("color: yellow;");
@@ -45,7 +47,7 @@ maingame::maingame(const QString& name,int speed,QWidget *parent) : QWidget(pare
     menu_button->setFocusPolicy(Qt::NoFocus);
     exit_button->setFocusPolicy(Qt::NoFocus);
 
-    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//dont allow to scroll
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 
@@ -64,8 +66,6 @@ maingame::maingame(const QString& name,int speed,QWidget *parent) : QWidget(pare
     deathTextItem->setPlainText("");//initially empty - fill with text after losing
     scene->addItem(deathTextItem);//Add to scene
     deathTextItem->setPos(x / 2 -470, y / 2 - 200);//Center position
-
-    updateDisplay();
 
     bool gameOver = false;
     deathTimer = new QTimer(this);//initialize on the beginning

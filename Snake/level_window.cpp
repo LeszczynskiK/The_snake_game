@@ -15,6 +15,7 @@ level_window::level_window(QString playerName,QWidget *parent) : QWidget(parent)
     QFont font;
     font.setPointSize(24);//Font size -all font size
 
+    //sizes and start points for buttons
     const int x_start = 30;
     const int y_start=420;
     const int x_size=330;
@@ -23,6 +24,7 @@ level_window::level_window(QString playerName,QWidget *parent) : QWidget(parent)
     const int level_gap=360;
     const int x_start_lvl=65;
 
+    //buttons
     easy_button = new QPushButton("Easy level...", this);//go to menu
     easy_button->setFont(font);
     easy_button->setStyleSheet("color: yellow;");
@@ -66,11 +68,11 @@ level_window::level_window(QString playerName,QWidget *parent) : QWidget(parent)
     view->setGeometry(0, 0, x, y);
     view->setStyleSheet("background: transparent;");//to show background
     view->setAttribute(Qt::WA_TransparentForMouseEvents);//the view transparent for mouse events(WA - widget atributes)
-    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//donw allow to scrool
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
-void level_window::paintEvent(QPaintEvent *event) {
+void level_window::paintEvent(QPaintEvent *event) {//paint event
     QWidget::paintEvent(event);
     QPainter painter(this);
     painter.drawPixmap(0, 0, background);//first draw background, later added elements on the background
@@ -84,7 +86,7 @@ void level_window::exitApp()
 void level_window::menuApp()
 {
     this->close();
-    mainWindow = new MainMenu(nullptr);
+    mainWindow = new MainMenu(nullptr);//go to mainmenu
     mainWindow->show();
 }
 

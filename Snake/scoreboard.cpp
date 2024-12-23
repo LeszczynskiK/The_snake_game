@@ -60,17 +60,17 @@ scoreboard::scoreboard(QWidget *parent) : QWidget(parent)
     scoreBestDisplay->setGeometry(210, 190, 470, 350);
     scoreBestDisplay->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scoreBestDisplay->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scoreBestDisplay->setReadOnly(true); // Make it read-only
+    scoreBestDisplay->setReadOnly(true);//Make it read-only
 
     //display the best score on the screen
     QString scoreText = ""; // Start text
-    for (int i = 0; i < scoresList.size() && i < 10; ++i) { // Show 10 last
+    for (int i = 0; i < scoresList.size() && i < 10; ++i) {//Show 10 last
         scoreText += QString("%1. %2 - %3\n").arg(i + 1).arg(playerNameList[i]).arg(scoresList[i]);
     }
-    scoreDisplay->setPlainText(scoreText); // Set score in text area
+    scoreDisplay->setPlainText(scoreText);//Set score in text area
 
-    // Display the best score
-    QString scoreTextBest = ""; // Start best text
+    //Display the best score
+    QString scoreTextBest = "";//Start best text
     if (!scoresList.isEmpty()) {
         int maxScoreIndex = 0;
         int maxScore = scoresList[0].toInt();
@@ -83,7 +83,7 @@ scoreboard::scoreboard(QWidget *parent) : QWidget(parent)
         }
         scoreTextBest = QString("Best: %1 - %2\n").arg(playerNameList[maxScoreIndex]).arg(maxScore);
     }
-    scoreBestDisplay->setPlainText(scoreTextBest); // Set best score in text area
+    scoreBestDisplay->setPlainText(scoreTextBest);//Set best score in text area
 }
 
 void scoreboard::paintEvent(QPaintEvent *event) {
