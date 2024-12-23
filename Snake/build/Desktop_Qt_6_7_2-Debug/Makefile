@@ -1047,6 +1047,10 @@ moc_level_window.cpp: ../../level_window.h \
 		../../food.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QFile \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfile.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QTextStream \
 		moc_predefs.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/libexec/moc
 	/home/krzysiek89/Qt/6.7.2/gcc_64/libexec/moc $(DEFINES) --include /home/krzysiek89/Desktop/QT_aplikacje/The_snake_game/Snake/build/Desktop_Qt_6_7_2-Debug/moc_predefs.h -I/home/krzysiek89/Qt/6.7.2/gcc_64/mkspecs/linux-g++ -I/home/krzysiek89/Desktop/QT_aplikacje/The_snake_game/Snake -I/home/krzysiek89/Qt/6.7.2/gcc_64/include -I/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets -I/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtGui -I/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../level_window.h -o moc_level_window.cpp
@@ -1275,6 +1279,10 @@ moc_maingame.cpp: ../../maingame.h \
 		../../food.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QFile \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfile.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QTextStream \
 		moc_predefs.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/libexec/moc
 	/home/krzysiek89/Qt/6.7.2/gcc_64/libexec/moc $(DEFINES) --include /home/krzysiek89/Desktop/QT_aplikacje/The_snake_game/Snake/build/Desktop_Qt_6_7_2-Debug/moc_predefs.h -I/home/krzysiek89/Qt/6.7.2/gcc_64/mkspecs/linux-g++ -I/home/krzysiek89/Desktop/QT_aplikacje/The_snake_game/Snake -I/home/krzysiek89/Qt/6.7.2/gcc_64/include -I/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets -I/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtGui -I/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../maingame.h -o moc_maingame.cpp
@@ -1934,6 +1942,10 @@ moc_scoreboard.cpp: ../../scoreboard.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qscrollarea.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QString \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QFile \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfile.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QTextStream \
 		moc_predefs.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/libexec/moc
 	/home/krzysiek89/Qt/6.7.2/gcc_64/libexec/moc $(DEFINES) --include /home/krzysiek89/Desktop/QT_aplikacje/The_snake_game/Snake/build/Desktop_Qt_6_7_2-Debug/moc_predefs.h -I/home/krzysiek89/Qt/6.7.2/gcc_64/mkspecs/linux-g++ -I/home/krzysiek89/Desktop/QT_aplikacje/The_snake_game/Snake -I/home/krzysiek89/Qt/6.7.2/gcc_64/include -I/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets -I/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtGui -I/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../scoreboard.h -o moc_scoreboard.cpp
@@ -2307,7 +2319,11 @@ level_window.o: ../../level_window.cpp ../../level_window.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QDebug \
 		../../food.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
-		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QFile \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfile.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QTextStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o level_window.o ../../level_window.cpp
 
 main.o: ../../main.cpp ../../mainmenu.h \
@@ -2752,7 +2768,11 @@ maingame.o: ../../maingame.cpp ../../maingame.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QDebug \
 		../../food.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
-		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QFile \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfile.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QTextStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o maingame.o ../../maingame.cpp
 
 mainmenu.o: ../../mainmenu.cpp ../../mainmenu.h \
@@ -2980,6 +3000,10 @@ mainmenu.o: ../../mainmenu.cpp ../../mainmenu.h \
 		../../food.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QFile \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfile.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QTextStream \
 		../../scoreboard.h \
 		../../level_window.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainmenu.o ../../mainmenu.cpp
@@ -3417,7 +3441,11 @@ scoreboard.o: ../../scoreboard.cpp ../../scoreboard.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsview.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qscrollarea.h \
 		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
-		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QString
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QString \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QFile \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfile.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/qfiledevice.h \
+		/home/krzysiek89/Qt/6.7.2/gcc_64/include/QtCore/QTextStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scoreboard.o ../../scoreboard.cpp
 
 snake.o: ../../snake.cpp ../../snake.h \

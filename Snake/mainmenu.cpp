@@ -92,7 +92,7 @@ void MainMenu::exitApp()
 void MainMenu::startGame()
 {
     this->close();
-    LevelWindow = new level_window(nullptr);
+    LevelWindow = new level_window(playerName,nullptr);
     LevelWindow->show();
 }
 
@@ -107,6 +107,7 @@ void MainMenu::scoreGame()
 {
     this->close();
     ScoreBoard = new scoreboard(nullptr);
+    ScoreBoard->setPlayerName(playerName);//share nickname to scoreboard
     ScoreBoard->show();
 }
 

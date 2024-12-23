@@ -1,6 +1,6 @@
 #include "level_window.h"
 
-level_window::level_window(QWidget *parent) : QWidget(parent)
+level_window::level_window(QString playerName,QWidget *parent) : QWidget(parent),m_playerName(playerName)
 {
     setWindowTitle("Scoreboard");
 
@@ -91,27 +91,27 @@ void level_window::menuApp()
 void level_window::easyApp()
 {
     this->close();
-    MainGame = new maingame(150,nullptr);//create game with the speed of 150
+    MainGame = new maingame(m_playerName,150,nullptr);//create game with the speed of 150
     MainGame->show();
 }
 
 void level_window::mediumApp()
 {
     this->close();
-    MainGame = new maingame(100,nullptr);//create game with the speed of 100
+    MainGame = new maingame(m_playerName,100,nullptr);//create game with the speed of 100
     MainGame->show();
 }
 
 void level_window::hardApp()
 {
     this->close();
-    MainGame = new maingame(60,nullptr);//create game with the speed of 60
+    MainGame = new maingame(m_playerName,60,nullptr);//create game with the speed of 60
     MainGame->show();
 }
 
 void level_window::ultraApp()
 {
     this->close();
-    MainGame = new maingame(30,nullptr);//create game with the speed of 30
+    MainGame = new maingame(m_playerName,30,nullptr);//create game with the speed of 30
     MainGame->show();
 }

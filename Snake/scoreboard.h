@@ -21,6 +21,8 @@ class scoreboard : public QWidget {
     Q_OBJECT
 public:
     scoreboard(QWidget *parent = nullptr);
+    QString playerName;//keep player nickname
+    void setPlayerName(const QString &name);//share name to
 private slots:
     void paintEvent(QPaintEvent *event);//background setter
     void exitApp();
@@ -34,6 +36,7 @@ private:
     QGraphicsScene *scene;//create scene
     QGraphicsView *view;//view of app
     QStringList scoresList;//list for storing scores
+    QStringList playerNameList;
     QVector<QLabel*> scoreLabels;//holds labels for displaying each score
 };
 

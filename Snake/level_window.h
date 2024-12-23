@@ -16,7 +16,8 @@
 class level_window:public QWidget {
     Q_OBJECT
 public:
-    level_window(QWidget *parent = nullptr);
+    level_window(QString nickname,QWidget *parent = nullptr);
+    QString m_playerName;//player nickname
 private slots:
     void paintEvent(QPaintEvent *event);//background setter
     void exitApp();

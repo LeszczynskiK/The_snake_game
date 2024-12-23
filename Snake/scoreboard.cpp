@@ -62,25 +62,38 @@ scoreboard::scoreboard(QWidget *parent) : QWidget(parent)
     scoreBestDisplay->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scoreBestDisplay->setReadOnly(true); // Make it read-only
 
-    //display the scores on the screen
-    QString scoreText = "";//start text
-    for (int i = 0; i < scoresList.size() && i < 10; ++i) {//show 10 last
-        scoreText += QString("%1. %2\n").arg(i + 1).arg(scoresList[i]);
-    }
-    scoreDisplay->setPlainText(scoreText);//set score in text area
-
     //display the best score on the screen
-    QString scoreTextBest = "";//start best text
-    for (int i = 0; i < scoresList.size() && i < 1; ++i) {//show best one
-        scoreTextBest += QString("%1. %2\n").arg(i + 1).arg(scoresList[i]);
+    QString scoreText = ""; // Start text
+    for (int i = 0; i < scoresList.size() && i < 10; ++i) { // Show 10 last
+        scoreText += QString("%1. %2 - %3\n").arg(i + 1).arg(playerNameList[i]).arg(scoresList[i]);
     }
-    scoreBestDisplay->setPlainText(scoreTextBest);//set score in text area
+    scoreDisplay->setPlainText(scoreText); // Set score in text area
+
+    // Display the best score
+    QString scoreTextBest = ""; // Start best text
+    if (!scoresList.isEmpty()) {
+        int maxScoreIndex = 0;
+        int maxScore = scoresList[0].toInt();
+        for (int i = 1; i < scoresList.size(); ++i) {
+            int currentScore = scoresList[i].toInt();
+            if (currentScore > maxScore) {
+                maxScore = currentScore;
+                maxScoreIndex = i;
+            }
+        }
+        scoreTextBest = QString("Best: %1 - %2\n").arg(playerNameList[maxScoreIndex]).arg(maxScore);
+    }
+    scoreBestDisplay->setPlainText(scoreTextBest); // Set best score in text area
 }
 
 void scoreboard::paintEvent(QPaintEvent *event) {
     QWidget::paintEvent(event);
     QPainter painter(this);
     painter.drawPixmap(0, 0, background);//first draw background, later added elements on the background
+}
+
+void scoreboard::setPlayerName(const QString &name) {
+    playerName = name;
 }
 
 void scoreboard::exitApp()
@@ -96,13 +109,23 @@ void scoreboard::menuApp()
 }
 
 
-void scoreboard::loadScores() {//read from .txt scores from last games
-    QFile file("scores.txt");//Load .txt file with scores
+void scoreboard::loadScores() {
+    QFile file("scores.txt");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
         while (!in.atEnd()) {
             QString line = in.readLine();
-            scoresList.append(line);//Add lines to scoresList to later display
+            QStringList parts = line.split(":");
+            if (parts.size() == 2) {
+                QString name = parts[0].trimmed();
+                QString score = parts[1].trimmed();
+                if (!name.isEmpty() && !score.isEmpty()) {
+                    playerNameList.append(name);//add player name to proper list
+                    scoresList.append(score);//add score of player to proper list
+                }
+            } else {
+                qDebug() << "Invalid line format in scores.txt:" << line;
+            }
         }
         file.close();
     } else {
@@ -110,4 +133,7 @@ void scoreboard::loadScores() {//read from .txt scores from last games
     }
 
     qDebug() << "Loaded scores:" << scoresList;
+    qDebug() << "Loaded player names:" << playerNameList;
 }
+
+

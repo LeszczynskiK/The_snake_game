@@ -1,7 +1,7 @@
 #include "maingame.h"
 
 
-maingame::maingame(int speed,const QString& name,QWidget *parent) : QWidget(parent),playerName(name)
+maingame::maingame(const QString& name,int speed,QWidget *parent) : QWidget(parent),playerName(name)
 {
     setWindowTitle("The snake game");
 
