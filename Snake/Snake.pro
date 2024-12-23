@@ -15,6 +15,7 @@ SOURCES += \
     maingame.cpp \
     mainmenu.cpp \
     manual.cpp \
+    obstacle.cpp \
     scoreboard.cpp \
     snake.cpp
 
@@ -24,6 +25,7 @@ HEADERS += \
     maingame.h \
     mainmenu.h \
     manual.h \
+    obstacle.h \
     scoreboard.h \
     snake.h
 

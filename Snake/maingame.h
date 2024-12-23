@@ -5,6 +5,7 @@
 #include "mainmenu.h"
 #include "snake.h"
 #include "food.h"
+#include "obstacle.h"
 
 #include <QWidget>
 #include <QLineEdit>
@@ -36,6 +37,7 @@ private slots:
     void displayDeathMessage();//message after death
     void resetGame();//new game initialisation
     void moveSnake();//snake movement
+    void generateObstacle();//create obstacle by timer period
 private:
     void keyPressEvent(QKeyEvent *event);
     QPixmap background;//Background txt
@@ -46,6 +48,7 @@ private:
     QGraphicsTextItem *scoreTextItem;//score object
     QGraphicsTextItem *deathTextItem;//death message object
     QTimer *deathTimer;//time to message after death display
+    QTimer *obstacleTimer;//period by which new obstacle generate in new place
     bool gameOver;//game is lost?
     bool isGameOver();//if lost, return that game is lost
     void updateDisplay();//show points
@@ -55,6 +58,7 @@ private:
 
     Snake *snake;//pointer to snake object
     Food *food;//pointer to food object
+    Obstacle *obstacle;//pointer to obstacle object
 
     void saveScoreToFile(const QString& playerName);//save score to txt if player die
     QString playerName;//nickname storage variable

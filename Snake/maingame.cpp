@@ -72,11 +72,16 @@ maingame::maingame(const QString& name,int speed,QWidget *parent) : QWidget(pare
     connect(deathTimer, &QTimer::timeout, this, &maingame::menuApp);
 
     snake = new Snake(30, 100, 100);//create new snake object
+
     food = new Food(30, 920, 680);//create new food object
 
     moveTimer = new QTimer(this);//snake timer move
     connect(moveTimer, &QTimer::timeout, this, &maingame::moveSnake);
     moveTimer->start(speed);
+
+    obstacleTimer = new QTimer(this);//obstacle timer generate
+    connect(obstacleTimer, &QTimer::timeout, this, &maingame::generateObstacle);
+    obstacleTimer->start(3500);//new obstacle by each 3.5 sec
 
     view->setFocusPolicy(Qt::NoFocus);
     this->setFocus();
@@ -98,6 +103,10 @@ void maingame::paintEvent(QPaintEvent *event) {
 
     if (food) {//if object exist, draw it
         food->draw(painter);
+    }
+
+    if (obstacle) {//if object exist, draw it
+        obstacle->draw(painter);
     }
 }
 
@@ -140,6 +149,8 @@ void maingame::resetGame() {//put game settings to start mode
     gameOver = false;
     score = 0;
 
+
+    //constand position after new game turning on
     if (snake) {
         delete snake;//Clean up the previous snake object, if any
         snake = nullptr;
@@ -150,6 +161,12 @@ void maingame::resetGame() {//put game settings to start mode
         food = nullptr;
     }
     food = new Food(30, 920, 680);//create new food object
+
+    if (obstacle) {
+        delete obstacle;//Clean up the previous food object, if any
+        obstacle = nullptr;
+    }
+    obstacle = new Obstacle(20,300,300);
 
     updateDisplay();
 }
@@ -186,6 +203,21 @@ void maingame::moveSnake() {//snake managing
         return;
     }
     update();//each step connected with timer neet to be actualised - update view!!!!
+}
+
+void maingame::generateObstacle()
+{
+    delete obstacle;//delete old one obstacle
+    obstacle=nullptr;
+
+
+    srand(time(NULL));
+    int ran_x_o=rand()%1300+100;//random x pos of obstacle
+    int ran_y_o=rand()&650+100;//random y pos of obstacle
+    int ran_size = 10*rand()%10+20;//random size of obstacle
+    obstacle = new Obstacle(ran_size,ran_x_o,ran_y_o);//create new obstacle
+    qDebug() << "Generated obstacle size: " << ran_size;
+
 }
 
 void maingame::keyPressEvent(QKeyEvent *event) {//keyboard character steering
