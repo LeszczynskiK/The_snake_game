@@ -20,12 +20,14 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
     QFont font;
     font.setPointSize(24);//Font size -all font size
 
+    //buttons sizes and coordinates
     const int x_start = 30;
     const int y_start=200;
     const int x_size=330;
     const int y_size=90;
     const int gap=20;
 
+    //buttons
     start_button = new QPushButton("Start new game...", this);//leave from app
     start_button->setFont(font);
     start_button->setStyleSheet("color: yellow;");
@@ -89,11 +91,17 @@ void MainMenu::exitApp()
     this->close();//turn off app...
 }
 
-void MainMenu::startGame()
+void MainMenu::startGame()//cleare level choose object
 {
+    if(!playerName.isEmpty()){
     this->close();
-    LevelWindow = new level_window(playerName,nullptr);
+    LevelWindow = new level_window(playerName,nullptr);//share playerName to level_window class
     LevelWindow->show();
+    }
+    else
+    {
+        welcomeTextItem->setPlainText("Please type your nickname!!!");
+    }
 }
 
 void MainMenu::manualGame()//create manual window
@@ -113,10 +121,10 @@ void MainMenu::scoreGame()
 
 void MainMenu::updateWelcomeText() {
     playerName = playerNameInput->text();
-    if (!playerName.isEmpty()) {
-        welcomeTextItem->setPlainText(QString("Welcome: %1").arg(playerName));
+    if (!playerName.isEmpty()) {//if nickname is typped(not empty)
+        welcomeTextItem->setPlainText(QString("Welcome: %1").arg(playerName));//set formule to welcome app user
     } else {
-        welcomeTextItem->setPlainText("Welcome: ");
+        welcomeTextItem->setPlainText("Welcome: ");//if empty nickname9not typped)
     }
 }
 

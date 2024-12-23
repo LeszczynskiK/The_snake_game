@@ -15,12 +15,15 @@ manual::manual(QWidget *parent) : QWidget(parent)
     QFont font;
     font.setPointSize(24);//Font size -all font size
 
+
+    //buttons sizes and coordinates
     const int x_start = 30;
     const int y_start=420;
     const int x_size=330;
     const int y_size=90;
     const int gap=20;
 
+    //buttons
     menu_button = new QPushButton("Menu...", this);//go to menu
     menu_button->setFont(font);
     menu_button->setStyleSheet("color: yellow;");

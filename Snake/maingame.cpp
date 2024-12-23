@@ -67,7 +67,7 @@ maingame::maingame(const QString& name,int speed,QWidget *parent) : QWidget(pare
     scene->addItem(deathTextItem);//Add to scene
     deathTextItem->setPos(x / 2 -470, y / 2 - 200);//Center position
 
-    bool gameOver = false;
+    gameOver = false;//game is not lost in the moment of initialisation
     deathTimer = new QTimer(this);//initialize on the beginning
     connect(deathTimer, &QTimer::timeout, this, &maingame::menuApp);
 
@@ -92,11 +92,11 @@ void maingame::paintEvent(QPaintEvent *event) {
     painter.setPen(QPen(Qt::black, 4));
     painter.drawRect(frameRect);//draw frame
 
-    if (snake) {
+    if (snake) {//if object exist, draw it
         snake->draw(painter);
     }
 
-    if (food) {
+    if (food) {//if object exist, draw it
         food->draw(painter);
     }
 }
@@ -110,33 +110,33 @@ void maingame::exitApp()
 
 void maingame::menuApp()
 {
-    deathTimer->stop();
+    deathTimer->stop();//stop timer counting to death operation display
     this->close();
     auto *mainWindow = new MainMenu();//create mainWindow
     mainWindow->show();
     delete this;
 }
 
-void maingame::displayDeathMessage()
+void maingame::displayDeathMessage()//if you lose, you will see this
 {
     qDebug("You lost...");
-    deathTextItem->setPlainText("You lost!!!");
+    deathTextItem->setPlainText("You lost!!!");//display this on screen
 
     saveScoreToFile(playerName);//save score
 
-    deathTimer->start(5000);
+    deathTimer->start(5000);//start counting to do menuApp() method
 }
 
-void maingame::updateDisplay() {
+void maingame::updateDisplay() {//update score on the screen
     scoreTextItem->setPlainText(QString("Score: %1").arg(score));
 }
 
-bool maingame::isGameOver()
+bool maingame::isGameOver()//return information about game state
 {
     return gameOver;
 }
 
-void maingame::resetGame() {
+void maingame::resetGame() {//put game settings to start mode
     gameOver = false;
     score = 0;
 
@@ -154,8 +154,8 @@ void maingame::resetGame() {
     updateDisplay();
 }
 
-void maingame::moveSnake() {
-    if (gameOver)
+void maingame::moveSnake() {//snake managing
+    if (gameOver)//if game is lost
     {
         displayDeathMessage();
         moveTimer->stop();
@@ -171,7 +171,7 @@ void maingame::moveSnake() {
     }
 
     QRect frameRect(35, 38, width() - 85, height() - 78);
-    if (!frameRect.contains(snake->getHead())) {
+    if (!frameRect.contains(snake->getHead())) {//if snane head is behing the rectangle(main screen frame)
         gameOver = true;
         displayDeathMessage();
         moveTimer->stop();
@@ -185,9 +185,7 @@ void maingame::moveSnake() {
         moveTimer->stop();
         return;
     }
-
-    updateDisplay();
-    update();
+    update();//each step connected with timer neet to be actualised - update view!!!!
 }
 
 void maingame::keyPressEvent(QKeyEvent *event) {//keyboard character steering
@@ -209,11 +207,11 @@ void maingame::keyPressEvent(QKeyEvent *event) {//keyboard character steering
 }
 
 void maingame::saveScoreToFile(const QString& playerName) {//create scores.txt and put there nickname and score
-    QFile file("scores.txt");
-    if (file.open(QIODevice::Append | QIODevice::Text)) {
-        QTextStream out(&file);
-        out << playerName << ": " << score << "\n";
-        file.close();
+    QFile file("scores.txt");//create QFile object with name of scores.txt
+    if (file.open(QIODevice::Append | QIODevice::Text)) {//open in type in text mode , and text mode
+        QTextStream out(&file);//QTextStream object type from reference to file, out is name of variable
+        out << playerName << ": " << score << "\n";//put data to variable called out
+        file.close();//close file
     } else {
         qDebug() << "Failed to open scores.txt for writing!";
     }

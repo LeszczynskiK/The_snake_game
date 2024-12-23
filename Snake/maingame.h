@@ -51,13 +51,13 @@ private:
     void updateDisplay();//show points
     QGraphicsScene *scene;//create scene
     QGraphicsView *view;//view of app
-    QTimer *moveTimer;
+    QTimer *moveTimer;//snake movement timer
 
     Snake *snake;//pointer to snake object
     Food *food;//pointer to food object
 
     void saveScoreToFile(const QString& playerName);//save score to txt if player die
-    QString playerName;
+    QString playerName;//nickname storage variable
 };
 
 #endif // MAINGAME_H

@@ -46,9 +46,9 @@ QRect Snake::getHead() const {
 }
 
 bool Snake::checkCollision() const {
-    QRect head = body.first();
+    QRect head = body.first();//head is 1st part of body
 
-    //check colision with body
+    //check colision with its body
     for (int i = 1; i < body.size(); ++i) {
         if (head.intersects(body[i])) {
             return true;
@@ -58,7 +58,7 @@ bool Snake::checkCollision() const {
 }
 
 int Snake::getDirection() const {
-    return direction;
+    return direction;//where is snake moving (front etc..)
 }
 
 void Snake::setDirection(int dir) {

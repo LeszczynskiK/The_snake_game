@@ -28,7 +28,7 @@ private:
     QPixmap background;//Background txt
     QPushButton *exit_button;//exit app
     QPushButton *menu_button;
-    MainMenu *mainMenu;
+    MainMenu *mainMenu;//pointer to mainmenu
     QGraphicsTextItem *instructionsTextItem;//manual - steering character
     QGraphicsTextItem *objectivesTextItem;//manual - objectives
     QGraphicsScene *scene;//create scene
