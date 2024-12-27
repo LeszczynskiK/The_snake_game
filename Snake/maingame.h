@@ -29,7 +29,7 @@ class MainMenu;
 class maingame : public QWidget{
     Q_OBJECT
 public:
-    maingame(const QString& name,int speed,QWidget *parent = nullptr);
+    maingame(const QString& name,int speed,QWidget *parent = nullptr,bool mode_st=false);
 private slots:
     void paintEvent(QPaintEvent *event);//background setter
     void exitApp();//quic app
@@ -59,9 +59,12 @@ private:
     Snake *snake;//pointer to snake object
     Food *food;//pointer to food object
     Obstacle *obstacle;//pointer to obstacle object
+    level_window *lvl_window;//pointer to level_window object
 
     void saveScoreToFile(const QString& playerName);//save score to txt if player die
     QString playerName;//nickname storage variable
+
+    bool obstacle_resp;//obstacle mode contidion
 };
 
 #endif // MAINGAME_H

@@ -70,6 +70,13 @@ level_window::level_window(QString playerName,QWidget *parent) : QWidget(parent)
     view->setAttribute(Qt::WA_TransparentForMouseEvents);//the view transparent for mouse events(WA - widget atributes)
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//donw allow to scrool
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    obstacle_button = new QPushButton("Obstacle resp mode: 0", this);//leave from app
+    obstacle_button->setFont(font);
+    obstacle_button->setStyleSheet("color: yellow;");
+    obstacle_button->setGeometry(x_start_lvl+475, y_start+3*y_size+gap, x_size+100, y_size);
+    connect(obstacle_button, &QPushButton::clicked, this, &level_window::obstacleMode);
+    obstacle_resp=false;//dont resp obstacle if mode is not changed
 }
 
 void level_window::paintEvent(QPaintEvent *event) {//paint event
@@ -90,30 +97,44 @@ void level_window::menuApp()
     mainWindow->show();
 }
 
+void level_window::obstacleMode()
+{
+    obstacle_resp=!obstacle_resp;//change mode from 1->0, 0->1(depends on beginning condition)
+    if(obstacle_resp==false)//id mode = false
+    {
+        obstacle_button->setText("Obstacle resp mode: 0");
+    }
+    else//if mode true(osbatcle will resp periodically)
+    {
+        obstacle_button->setText("Obstacle resp mode: 1");
+    }
+}
+
 void level_window::easyApp()
 {
     this->close();
-    MainGame = new maingame(m_playerName,160,nullptr);//create game with the speed of 150
+    MainGame = new maingame(m_playerName,160,nullptr,obstacle_resp);//create game with the speed of 150
     MainGame->show();
 }
 
 void level_window::mediumApp()
 {
     this->close();
-    MainGame = new maingame(m_playerName,130,nullptr);//create game with the speed of 100
+    MainGame = new maingame(m_playerName,130,nullptr,obstacle_resp);//create game with the speed of 100
     MainGame->show();
 }
 
 void level_window::hardApp()
 {
     this->close();
-    MainGame = new maingame(m_playerName,100,nullptr);//create game with the speed of 60
+    MainGame = new maingame(m_playerName,100,nullptr,obstacle_resp);//create game with the speed of 60
     MainGame->show();
 }
 
 void level_window::ultraApp()
 {
     this->close();
-    MainGame = new maingame(m_playerName,60,nullptr);//create game with the speed of 30
+    MainGame = new maingame(m_playerName,60,nullptr,obstacle_resp);//create game with the speed of 30
     MainGame->show();
 }
+

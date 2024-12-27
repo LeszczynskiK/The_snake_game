@@ -9,8 +9,8 @@ Food::Food(int size, int screenWidth, int screenHeight) {//food size, scene widt
 
 void Food::generate(int screenWidth, int screenHeight) {//random pos food generator
     srand(time(NULL));//random position food generation
-    int ran_x=rand()%1420 +50;
-    int ran_y=rand()%780+50;
+    int ran_x=rand()%(screenWidth-100) +50;
+    int ran_y=rand()%(screenHeight-100)+50;
     foodPosition = QRect(ran_x, +ran_y, foodSize, foodSize);//create food : pos_x,pos_y (random) , and size
 }
 

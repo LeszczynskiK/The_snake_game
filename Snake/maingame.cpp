@@ -1,7 +1,7 @@
 #include "maingame.h"
 
 
-maingame::maingame(const QString& name,int speed,QWidget *parent) : QWidget(parent),playerName(name)
+maingame::maingame(const QString& name,int speed,QWidget *parent,bool mode_st) : QWidget(parent),playerName(name),obstacle_resp(mode_st)
 {
     setWindowTitle("The snake game");
 
@@ -71,10 +71,15 @@ maingame::maingame(const QString& name,int speed,QWidget *parent) : QWidget(pare
     deathTimer = new QTimer(this);//initialize on the beginning
     connect(deathTimer, &QTimer::timeout, this, &maingame::menuApp);
 
-    snake = new Snake(30, 100, 100);//create new snake object
+    snake = new Snake(30, x/2, y/2);//create new snake object(2nd and 3rd argument is start position
 
-    food = new Food(30, 920, 680);//create new food object
+    food = new Food(30, x, y);//create new food object//2nd and 3rd argument is window size (random pos is resp place)
+    qDebug() << "Obstacle mode: " << obstacle_resp;
 
+    if(obstacle_resp == true)//if obstacle mode is on
+    {
+        obstacle = new Obstacle(20,x,y);//create new obstacle//2nd and 3rd argument is window size (random pos is resp place)
+    }
     moveTimer = new QTimer(this);//snake timer move
     connect(moveTimer, &QTimer::timeout, this, &maingame::moveSnake);
     moveTimer->start(speed);
@@ -105,14 +110,19 @@ void maingame::paintEvent(QPaintEvent *event) {
         food->draw(painter);
     }
 
-    if (obstacle) {//if object exist, draw it
-        obstacle->draw(painter);
+    if(obstacle_resp == true)//if obstacle mode is on
+    {
+        if (obstacle) {//if object exist, draw it
+            obstacle->draw(painter);
+        }
     }
 }
 
 void maingame::exitApp()
 {
     deathTimer->stop();
+    moveTimer->stop();
+    obstacleTimer->stop();
     this->close();//turn off app...
     delete this;
 }
@@ -120,6 +130,8 @@ void maingame::exitApp()
 void maingame::menuApp()
 {
     deathTimer->stop();//stop timer counting to death operation display
+    moveTimer->stop();
+    obstacleTimer->stop();
     this->close();
     auto *mainWindow = new MainMenu();//create mainWindow
     mainWindow->show();
@@ -162,11 +174,14 @@ void maingame::resetGame() {//put game settings to start mode
     }
     food = new Food(30, 920, 680);//create new food object
 
-    if (obstacle) {
-        delete obstacle;//Clean up the previous food object, if any
-        obstacle = nullptr;
+    if(obstacle_resp == true)//if obstacle mode is on
+    {
+        if (obstacle) {
+            delete obstacle;//Clean up the previous food object, if any
+            obstacle = nullptr;
+        }
+        obstacle = new Obstacle(20,300,300);
     }
-    obstacle = new Obstacle(20,300,300);
 
     updateDisplay();
 }
@@ -176,6 +191,7 @@ void maingame::moveSnake() {//snake managing
     {
         displayDeathMessage();
         moveTimer->stop();
+        obstacleTimer->stop();
         return;
     }
 
@@ -185,6 +201,16 @@ void maingame::moveSnake() {//snake managing
         snake->grow();//increase snake size
         score += 10;//add points
         updateDisplay();
+    }
+
+    if(obstacle_resp == true)//if obstacle mode is on
+    {
+         if (snake->getHead().intersects(obstacle->getPosition_obs())) {//if snake head touch obstacle
+            displayDeathMessage();//snake lose the game
+            moveTimer->stop();
+            obstacleTimer->stop();
+            return;
+         }
     }
 
     QRect frameRect(35, 38, width() - 85, height() - 78);
@@ -200,6 +226,7 @@ void maingame::moveSnake() {//snake managing
         gameOver = true;//you lost
         displayDeathMessage();
         moveTimer->stop();
+        obstacleTimer->stop();
         return;
     }
     update();//each step connected with timer neet to be actualised - update view!!!!
@@ -207,17 +234,15 @@ void maingame::moveSnake() {//snake managing
 
 void maingame::generateObstacle()
 {
-    delete obstacle;//delete old one obstacle
-    obstacle=nullptr;
+    if(obstacle_resp == true)//if obstacle mode is on
+    {
+        if (obstacle != nullptr) {
+            delete obstacle; //delete old one if exist
+        }
 
-
-    srand(time(NULL));
-    int ran_x_o=rand()%1300+100;//random x pos of obstacle
-    int ran_y_o=rand()&650+100;//random y pos of obstacle
-    int ran_size = 10*rand()%10+20;//random size of obstacle
-    obstacle = new Obstacle(ran_size,ran_x_o,ran_y_o);//create new obstacle
-    qDebug() << "Generated obstacle size: " << ran_size;
-
+        obstacle = new Obstacle(0, 0, 0);//create temp dommy values(no text or value in ...) to avoid inticating to nullptr
+        obstacle->generate_obs(1920 * 0.8, 1080 * 0.8);//generate in random pos with arguments of window size..
+    }
 }
 
 void maingame::keyPressEvent(QKeyEvent *event) {//keyboard character steering

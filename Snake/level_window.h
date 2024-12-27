@@ -18,6 +18,7 @@ class level_window:public QWidget {
 public:
     level_window(QString nickname,QWidget *parent = nullptr);
     QString m_playerName;//player nickname
+    bool obstacle_resp;//1=resp of obstacle is possible
 private slots:
     void paintEvent(QPaintEvent *event);//background setter
     void exitApp();//quit app
@@ -26,6 +27,7 @@ private slots:
     void mediumApp();//create game on medium lvl
     void hardApp();//create game on hard lvl
     void ultraApp();//create game on ultra lvl
+    void obstacleMode();//swithc between obstacle resp possibility
 private:
     QPixmap background;//Background txt
     QPushButton *exit_button;//exit app
@@ -34,6 +36,7 @@ private:
     QGraphicsScene *scene;//create scene
     QGraphicsView *view;//view of app
     maingame* MainGame;//pointer to maingame class
+    QPushButton *obstacle_button;//turn on? obstacle mode (if yes, obstacle will resp)
 
     //buttons to choose toughness of game
     QPushButton *easy_button;//easy level
