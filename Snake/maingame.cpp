@@ -35,6 +35,13 @@ maingame::maingame(const QString& name,int speed,QWidget *parent,bool mode_st) :
     exit_button->setGeometry(x_start+30+x_size, y_start, x_size, y_size);
     connect(exit_button, &QPushButton::clicked, this, &maingame::exitApp);
 
+    is_paused = false;//game is not paused in the beginning
+    pause_button = new QPushButton("Pause game...", this);//leave from app
+    pause_button->setFont(font);
+    pause_button->setStyleSheet("color: yellow;");
+    pause_button->setGeometry(x_start+60+2*x_size, y_start, x_size, y_size);
+    connect(pause_button, &QPushButton::clicked, this, &maingame::pauseGame);
+
     score =0;//start score
 
     //Create graphics scene and view
@@ -66,6 +73,17 @@ maingame::maingame(const QString& name,int speed,QWidget *parent,bool mode_st) :
     deathTextItem->setPlainText("");//initially empty - fill with text after losing
     scene->addItem(deathTextItem);//Add to scene
     deathTextItem->setPos(x / 2 -470, y / 2 - 200);//Center position
+
+    //Create text about game pause (if paused), if unpaused then inform and delete text from scene
+    pauseTextItem = new QGraphicsTextItem();
+    pauseTextItem->setDefaultTextColor(Qt::red);//pause message colour
+    pauseTextItem->setFont(QFont("Arial", 125));//pause message font size
+    pauseTextItem->setPlainText("");//initially empty - fill with text after paused
+    scene->addItem(pauseTextItem);//Add to scene
+    pauseTextItem->setPos(75, y / 2 - 130);//Center position
+
+    countdownValue = 3;//if game is unpaused... count 3.2.1...
+    countdownTimer = nullptr;
 
     gameOver = false;//game is not lost in the moment of initialisation
     deathTimer = new QTimer(this);//initialize on the beginning
@@ -137,6 +155,64 @@ void maingame::menuApp()
     mainWindow->show();
     delete this;
 }
+
+void maingame::pauseGame()
+{
+    is_paused = !is_paused;
+    countdownValue = 3;//value to countdown from
+    if(is_paused == false){//if game is not paused
+        pause_button->setText("Pause game...");
+
+        pauseTextItem->setPlainText("3");//start counting down (3)
+
+
+        //create temporary timer to count
+        if (!countdownTimer) {
+            countdownTimer = new QTimer(this);
+            connect(countdownTimer, &QTimer::timeout, this, &maingame::updateCountdown);//method to count from 3 to 1
+        }
+        countdownTimer->start(1000);//actualise pause text after each 1sec (to add proper counting)
+    }
+    else//if game is paused
+    {
+        pause_button->setText("Resume game...");
+
+        //stop all of the actions
+        deathTimer->stop();
+        moveTimer->stop();
+        obstacleTimer->stop();
+        pauseTextItem->setPlainText("Game is paused...");
+    }
+}
+
+void maingame::updateCountdown()
+{
+    if (countdownValue > 1) {
+        countdownValue--; //decrease value to dount down
+        pauseTextItem->setPlainText(QString::number(countdownValue));//display current value of countdownValue
+    } else {//if finished counting
+        countdownTimer->stop();//stop counting timer
+        pauseTextItem->setPlainText("Game is resumed!");//give informaton tht game is again playable
+        QTimer::singleShot(1000, this, &maingame::clearPauseText);//call after 1000ms function clearPauseText(only once - single shot)
+
+        //start all of the actions
+        moveTimer->start();
+        if(obstacle_resp == true)
+        {
+            obstacleTimer->start();
+        }
+        pauseTextItem->setPlainText("");
+
+        view->setFocusPolicy(Qt::NoFocus);
+        this->setFocus();
+    }
+}
+
+void maingame::clearPauseText()
+{
+    pauseTextItem->setPlainText("");//delete text from screen (set it empty)
+}
+
 
 void maingame::displayDeathMessage()//if you lose, you will see this
 {

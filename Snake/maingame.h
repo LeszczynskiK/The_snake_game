@@ -38,15 +38,23 @@ private slots:
     void resetGame();//new game initialisation
     void moveSnake();//snake movement
     void generateObstacle();//create obstacle by timer period
+    void pauseGame();//if clicked - then game is paused(unpaused if clicked again)
+    void updateCountdown();//count down from 3 to 1 (and display this on the screen)
+    void clearPauseText();//delete text from pause displaying
 private:
     void keyPressEvent(QKeyEvent *event);
     QPixmap background;//Background txt
     QPushButton *exit_button;//exit app
     QPushButton *menu_button;//go to menu
+    QPushButton *pause_button;//go to pause
+    bool is_paused;//if game paused?
     MainMenu *mainWindow;
     int score;//points
     QGraphicsTextItem *scoreTextItem;//score object
     QGraphicsTextItem *deathTextItem;//death message object
+    QGraphicsTextItem *pauseTextItem;//pause status text on the screen
+    QTimer* countdownTimer;//counter to count 3...2...1
+    int countdownValue;//value to count down from
     QTimer *deathTimer;//time to message after death display
     QTimer *obstacleTimer;//period by which new obstacle generate in new place
     bool gameOver;//game is lost?
