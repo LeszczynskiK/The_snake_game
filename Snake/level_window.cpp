@@ -113,28 +113,28 @@ void level_window::obstacleMode()
 void level_window::easyApp()
 {
     this->close();
-    MainGame = new maingame(m_playerName,160,nullptr,obstacle_resp);//create game with the speed of 150
+    MainGame = new maingame(m_playerName,130,nullptr,obstacle_resp);//create game with the speed of 150
     MainGame->show();
 }
 
 void level_window::mediumApp()
 {
     this->close();
-    MainGame = new maingame(m_playerName,130,nullptr,obstacle_resp);//create game with the speed of 100
+    MainGame = new maingame(m_playerName,100,nullptr,obstacle_resp);//create game with the speed of 100
     MainGame->show();
 }
 
 void level_window::hardApp()
 {
     this->close();
-    MainGame = new maingame(m_playerName,100,nullptr,obstacle_resp);//create game with the speed of 60
+    MainGame = new maingame(m_playerName,75,nullptr,obstacle_resp);//create game with the speed of 60
     MainGame->show();
 }
 
 void level_window::ultraApp()
 {
     this->close();
-    MainGame = new maingame(m_playerName,60,nullptr,obstacle_resp);//create game with the speed of 30
+    MainGame = new maingame(m_playerName,55,nullptr,obstacle_resp);//create game with the speed of 30
     MainGame->show();
 }
 

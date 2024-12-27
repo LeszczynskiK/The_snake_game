@@ -78,7 +78,7 @@ maingame::maingame(const QString& name,int speed,QWidget *parent,bool mode_st) :
 
     if(obstacle_resp == true)//if obstacle mode is on
     {
-        obstacle = new Obstacle(20,x,y);//create new obstacle//2nd and 3rd argument is window size (random pos is resp place)
+        obstacle = new Obstacle(20,x,y,*snake);//create new obstacle//2nd and 3rd argument is window size (random pos is resp place)
     }
     moveTimer = new QTimer(this);//snake timer move
     connect(moveTimer, &QTimer::timeout, this, &maingame::moveSnake);
@@ -180,7 +180,7 @@ void maingame::resetGame() {//put game settings to start mode
             delete obstacle;//Clean up the previous food object, if any
             obstacle = nullptr;
         }
-        obstacle = new Obstacle(20,300,300);
+        obstacle = new Obstacle(20,300,300,*snake);
     }
 
     updateDisplay();
@@ -240,8 +240,9 @@ void maingame::generateObstacle()
             delete obstacle; //delete old one if exist
         }
 
-        obstacle = new Obstacle(0, 0, 0);//create temp dommy values(no text or value in ...) to avoid inticating to nullptr
-        obstacle->generate_obs(1920 * 0.8, 1080 * 0.8);//generate in random pos with arguments of window size..
+        //with passing the snake object = *snake
+        obstacle = new Obstacle(0, 0, 0,*snake);//create temp dommy values(no text or value in ...) to avoid inticating to nullptr
+        obstacle->generate_obs(1920 * 0.8, 1080 * 0.8,*snake);//generate in random pos with arguments of window size..
     }
 }
 
