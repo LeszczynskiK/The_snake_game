@@ -49,13 +49,12 @@ manual::manual(QWidget *parent) : QWidget(parent)
     instructionsTextItem->setDefaultTextColor(Qt::yellow);//Instructions color
     instructionsTextItem->setFont(QFont("Arial", 32));//Instructions font size
     instructionsTextItem->setPlainText(
-        "Welcome to Snake Game!\n\n"
         "How to Play:\n"
-        "- Control the snake using W, A, S, D or arrow keys.\n"
+        "- Control the snake using arrow keys.\n"
         "- Collect the rectangles (food) to grow in size.\n"
-        "- Avoid hitting the walls or yourself.\n\n"
+        "- Avoid hitting the walls,obstacles or yourself.\n\n"
         );
-    instructionsTextItem->setPos(60, 120);//Position at the bottom
+    instructionsTextItem->setPos(60, 275);//Position at the bottom60,470
     scene->addItem(instructionsTextItem);
 
     //Add objective
@@ -66,7 +65,7 @@ manual::manual(QWidget *parent) : QWidget(parent)
         "Objective:\n"
         "Grow as much as you can and score the highest points!"
         );
-    objectivesTextItem->setPos(60, 470);
+    objectivesTextItem->setPos(60, 120);
     scene->addItem(objectivesTextItem);
 }
 

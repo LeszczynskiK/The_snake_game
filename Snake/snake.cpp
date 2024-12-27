@@ -80,9 +80,9 @@ void Snake::setDirection(int dir) {
 
 void Snake::draw(QPainter &painter) const {
     painter.setBrush(Qt::darkBlue);
-    for (const auto &segment : body) {
-        if (!segment.isNull() && segment.width() > 0 && segment.height() > 0) {
-            painter.drawRect(segment);
+    for (const auto &segment : body) {//iterate throw body
+        if (!segment.isNull() && segment.width() > 0 && segment.height() > 0) {//if segment exist
+            painter.drawRect(segment);//draw rectangle
         }
     }
 }
