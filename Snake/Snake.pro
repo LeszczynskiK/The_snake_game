@@ -17,6 +17,7 @@ SOURCES += \
     manual.cpp \
     obstacle.cpp \
     scoreboard.cpp \
+    scoreboard_obstacle.cpp \
     snake.cpp
 
 HEADERS += \
@@ -27,6 +28,7 @@ HEADERS += \
     manual.h \
     obstacle.h \
     scoreboard.h \
+    scoreboard_obstacle.h \
     snake.h
 
 FORMS +=

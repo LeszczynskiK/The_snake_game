@@ -2,6 +2,7 @@
 #define SCOREBOARD_H
 
 #include "mainmenu.h"
+#include "scoreboard_obstacle.h"
 
 #include <QWidget>
 #include <QLineEdit>
@@ -27,6 +28,7 @@ private slots:
     void paintEvent(QPaintEvent *event);//background setter
     void exitApp();
     void menuApp();
+    void obstacleApp();//go to rangking with obctacle included
     void loadScores();//load scores from last games...
     void resetRanking();//delete records from .txt file with scores
 private:
@@ -36,7 +38,9 @@ private:
     QPushButton *exit_button;//exit app
     QPushButton *menu_button;//go to menu
     QPushButton *reset_button;//reset scores ranking
+    QPushButton *obstacle_button;//button to go to obstacle ranking
     MainMenu *mainWindow;//pointer to mainmenu object
+    scoreboard_obstacle *scoreboardObstacle;//pointer to scoreboard obstacle object
     QGraphicsScene *scene;//create scene
     QGraphicsView *view;//view of app
     QStringList scoresList;//list for storing scores

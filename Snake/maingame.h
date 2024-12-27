@@ -62,6 +62,7 @@ private:
     level_window *lvl_window;//pointer to level_window object
 
     void saveScoreToFile(const QString& playerName);//save score to txt if player die
+    void saveScoreToFileObstacles(const QString& playerName);//save score to txt if player die(obstacle version)
     QString playerName;//nickname storage variable
 
     bool obstacle_resp;//obstacle mode contidion

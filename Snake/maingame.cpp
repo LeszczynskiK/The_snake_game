@@ -143,7 +143,15 @@ void maingame::displayDeathMessage()//if you lose, you will see this
     qDebug("You lost...");
     deathTextItem->setPlainText("You lost!!!");//display this on screen
 
-    saveScoreToFile(playerName);//save score
+    if(obstacle_resp == true)//if obstacle are avaiable in the game
+    {
+        saveScoreToFileObstacles(playerName);//save score
+    }
+
+    else//no obstacles in the game
+    {
+        saveScoreToFile(playerName);//save score
+    }
 
     deathTimer->start(5000);//start counting to do menuApp() method
 }
@@ -264,6 +272,7 @@ void maingame::keyPressEvent(QKeyEvent *event) {//keyboard character steering
     event->accept();//accept event
 }
 
+//to handle scores with no obstacles in game
 void maingame::saveScoreToFile(const QString& playerName) {//create scores.txt and put there nickname and score
     QFile file("scores.txt");//create QFile object with name of scores.txt
     if (file.open(QIODevice::Append | QIODevice::Text)) {//open in type in text mode , and text mode
@@ -272,5 +281,17 @@ void maingame::saveScoreToFile(const QString& playerName) {//create scores.txt a
         file.close();//close file
     } else {
         qDebug() << "Failed to open scores.txt for writing!";
+    }
+}
+
+//obstacles are avaiable in the game.. this is different file .txt
+void maingame::saveScoreToFileObstacles(const QString& playerName) {//create scores_obstacles.txt and put there nickname and score
+    QFile file("scores_obstacles.txt");//create QFile object with name of scores_obstacles.txt
+    if (file.open(QIODevice::Append | QIODevice::Text)) {//open in type in text mode , and text mode
+        QTextStream out(&file);//QTextStream object type from reference to file, out is name of variable
+        out << playerName << ": " << score << "\n";//put data to variable called out
+        file.close();//close file
+    } else {
+        qDebug() << "Failed to open scores_obstacles.txt for writing!";
     }
 }

@@ -41,6 +41,12 @@ scoreboard::scoreboard(QWidget *parent) : QWidget(parent)
     reset_button->setGeometry(x_start+2*x_size+2*gap, y_start+3*gap+3*y_size, x_size, y_size);
     connect(reset_button, &QPushButton::clicked, this, &scoreboard::resetRanking);
 
+    obstacle_button = new QPushButton("Obstacle game scores...", this);//leave from app
+    obstacle_button->setFont(font);
+    obstacle_button->setStyleSheet("color: yellow;");
+    obstacle_button->setGeometry(x_start+3*x_size+3*gap, y_start+3*gap+3*y_size, x_size*1.25, y_size);
+    connect(obstacle_button, &QPushButton::clicked, this, &scoreboard::obstacleApp);
+
     //Create graphics scene and view
     scene = new QGraphicsScene(this);
     scene->setSceneRect(0, 0, x, y);//scene size and pos
@@ -172,6 +178,13 @@ void scoreboard::resetRanking()
     }
 
     txt_show();
+}
+
+void scoreboard::obstacleApp()
+{
+    this->close();
+    scoreboardObstacle = new scoreboard_obstacle(nullptr);
+    scoreboardObstacle->show();
 }
 
 
